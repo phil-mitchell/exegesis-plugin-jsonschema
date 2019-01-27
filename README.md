@@ -5,7 +5,6 @@
 ![](https://img.shields.io/github/issues/phil-mitchell/exegesis-plugin-jsonschema.svg)
 ![](https://img.shields.io/github/license/phil-mitchell/exegesis-plugin-jsonschema.svg)
 ![](https://img.shields.io/node/v/exegesis-plugin-jsonschema.svg)
-![](https://img.shields.io/npm/dependency-version/exegesis-plugin-jsonschema/swagger-ui-express.svg)
 
 ## Description
 
