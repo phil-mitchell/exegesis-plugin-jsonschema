@@ -7,7 +7,7 @@
     "node": ">=8"
   },
   "scripts": {
-    "test": "grunt coverage",
+    "test": "grunt",
     "lint": "eslint .",
     "semantic-release": "semantic-release"
   },
