@@ -1,7 +1,7 @@
 # exegesis-plugin-jsonschema
 
-[![Run Status](https://api.shippable.com/projects/5c3011d2302eb707003b9ffe/badge?branch=master)]()
-[![Coverage Badge](https://api.shippable.com/projects/5c3011d2302eb707003b9ffe/coverageBadge?branch=master)]()
+[![Run Status](https://api.shippable.com/projects/5c437f657433f60600a12e74/badge?branch=master)]()
+[![Coverage Badge](https://api.shippable.com/projects/5c437f657433f60600a12e74/coverageBadge?branch=master)]()
 ![](https://img.shields.io/github/issues/phil-mitchell/exegesis-plugin-jsonschema.svg)
 ![](https://img.shields.io/github/license/phil-mitchell/exegesis-plugin-jsonschema.svg)
 ![](https://img.shields.io/node/v/exegesis-plugin-jsonschema.svg)
