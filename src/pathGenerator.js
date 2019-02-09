@@ -60,7 +60,7 @@ class JSONSchemaPathGenerator {
             'x-exegesis-jsonschema-pathtemplate': context.urlPath || '/',
             get: {
                 summary: `Gets a single ${schema.title || 'item'}`,
-                operationId: 'getItem',
+                operationId: `getItem ${urlPath}`,
                 parameters: [].concat( context.pathParams || [] ),
                 responses: {
                     '200': {
@@ -77,7 +77,7 @@ class JSONSchemaPathGenerator {
             },
             patch: {
                 summary: `Modify a ${schema.title}`,
-                operationId: `patchItem`,
+                operationId: `patchItem ${urlPath}`,
                 parameters: [].concat( context.pathParams || [] ),
                 requestBody: {
                     description: `The modified ${schema.title} values`,
@@ -105,7 +105,7 @@ class JSONSchemaPathGenerator {
             },
             put: {
                 summary: `Replace a ${schema.title}`,
-                operationId: `putItem`,
+                operationId: `putItem ${urlPath}`,
                 parameters: [].concat( context.pathParams || [] ),
                 requestBody: {
                     description: `The new ${schema.title} to replace this one`,
@@ -136,7 +136,7 @@ class JSONSchemaPathGenerator {
         if( !schema.readOnly ) {
             this.apiDoc.paths[urlPath]['delete'] = {
                 summary: `Delete a ${schema.title}`,
-                operationId: `deleteItem`,
+                operationId: `deleteItem ${urlPath}`,
                 parameters: [].concat( context.pathParams || [] ),
                 responses: {
                     '204': {
@@ -166,7 +166,7 @@ class JSONSchemaPathGenerator {
             'x-exegesis-jsonschema-pathtemplate': context.urlPath || '/',
             get: {
                 summary: `Gets a list of ${schema.title}`,
-                operationId: `getItems`,
+                operationId: `getItems ${urlPath}`,
                 parameters: [].concat( context.pathParams || [] ),
                 responses: {
                     '200': {
@@ -188,7 +188,7 @@ class JSONSchemaPathGenerator {
         if( !schema.readOnly ) {
             this.apiDoc.paths[urlPath].post = {
                 summary: `Create a new ${schema.title}`,
-                operationId: `postItems`,
+                operationId: `postItems ${urlPath}`,
                 parameters: [].concat( context.pathParams || [] ),
                 requestBody: {
                     description: `The new ${schema.title} to be created`,

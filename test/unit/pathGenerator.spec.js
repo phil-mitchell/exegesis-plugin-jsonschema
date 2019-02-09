@@ -190,7 +190,7 @@ describe( 'JSONSchemaPathGenerator', function() {
                 title: 'testSchema', 'exegesis-plugin-jsonschema-controller': 'schemaController' });
             expect( this.inst.apiDoc.paths['/'].get ).to.eql({
                 summary: 'Gets a single testSchema',
-                operationId: 'getItem',
+                operationId: 'getItem /',
                 parameters: [],
                 responses: {
                     200: {
@@ -211,7 +211,7 @@ describe( 'JSONSchemaPathGenerator', function() {
                 title: 'testSchema', 'exegesis-plugin-jsonschema-controller': 'schemaController' });
             expect( this.inst.apiDoc.paths['/'].patch ).to.eql({
                 summary: 'Modify a testSchema',
-                operationId: 'patchItem',
+                operationId: 'patchItem /',
                 parameters: [],
                 requestBody: {
                     description: 'The modified testSchema values',
@@ -243,7 +243,7 @@ describe( 'JSONSchemaPathGenerator', function() {
                 title: 'testSchema', 'exegesis-plugin-jsonschema-controller': 'schemaController' });
             expect( this.inst.apiDoc.paths['/'].put ).to.eql({
                 summary: 'Replace a testSchema',
-                operationId: 'putItem',
+                operationId: 'putItem /',
                 parameters: [],
                 requestBody: {
                     description: 'The new testSchema to replace this one',
@@ -275,7 +275,7 @@ describe( 'JSONSchemaPathGenerator', function() {
                 title: 'testSchema', 'exegesis-plugin-jsonschema-controller': 'schemaController' });
             expect( this.inst.apiDoc.paths['/'].delete ).to.eql({
                 summary: 'Delete a testSchema',
-                operationId: 'deleteItem',
+                operationId: 'deleteItem /',
                 parameters: [],
                 responses: {
                     204: {
@@ -365,7 +365,7 @@ describe( 'JSONSchemaPathGenerator', function() {
                 title: 'testSchema', 'exegesis-plugin-jsonschema-controller': 'schemaController' });
             expect( this.inst.apiDoc.paths['/'].get ).to.eql({
                 summary: 'Gets a list of testSchema',
-                operationId: 'getItems',
+                operationId: 'getItems /',
                 parameters: [],
                 responses: {
                     200: {
@@ -389,7 +389,7 @@ describe( 'JSONSchemaPathGenerator', function() {
                 title: 'testSchema', 'exegesis-plugin-jsonschema-controller': 'schemaController' });
             expect( this.inst.apiDoc.paths['/'].post ).to.eql({
                 summary: 'Create a new testSchema',
-                operationId: 'postItems',
+                operationId: 'postItems /',
                 parameters: [],
                 requestBody: {
                     description: 'The new testSchema to be created',

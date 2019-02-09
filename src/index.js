@@ -19,7 +19,20 @@ class JSONSchemaPlugin {
             throw new Error( `OpenAPI version ${apiDoc.openapi} not supported` );
         }
 
-        this.controller = new JSONSchemaController();
+        this.controller = new Proxy( new JSONSchemaController(), {
+            has: function( object, property ) {
+                if( typeof( property ) !== 'string' || Reflect.has( object, property ) ) {
+                    return true;
+                }
+                return Reflect.has( object, property.split( ' ' )[0] );
+            },
+            get: function( object, property ) {
+                if( typeof( property ) !== 'string' || Reflect.has( object, property ) ) {
+                    return Reflect.get( object, property );
+                }
+                return Reflect.get( object, property.split( ' ' )[0] );
+            }
+        });
 
         this._options.schema.forEach( schema => {
             pathGenerator( apiDoc, this.controller.name, schema.schema, schema.baseUrl );
