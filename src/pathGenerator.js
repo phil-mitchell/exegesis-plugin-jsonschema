@@ -57,6 +57,7 @@ class JSONSchemaPathGenerator {
             'x-exegesis-controller': this.controller,
             'x-exegesis-jsonschema-controller': localControllerName,
             'x-exegesis-jsonschema-blankobject': JSON.stringify( blankObject( schema ) ),
+            'x-exegesis-jsonschema-pathbase': this.baseUrl || '',
             'x-exegesis-jsonschema-pathtemplate': context.urlPath || '/',
             get: {
                 summary: `Gets a single ${schema.title || 'item'}`,
@@ -163,6 +164,7 @@ class JSONSchemaPathGenerator {
             'x-exegesis-controller': this.controller,
             'x-exegesis-jsonschema-controller': localControllerName,
             'x-exegesis-jsonschema-blankobject': JSON.stringify( blankObject( schema ) ),
+            'x-exegesis-jsonschema-pathbase': this.baseUrl || '',
             'x-exegesis-jsonschema-pathtemplate': context.urlPath || '/',
             get: {
                 summary: `Gets a list of ${schema.title}`,

@@ -139,7 +139,16 @@ describe( 'JSONSchemaPathGenerator', function() {
             this.inst.addObjectPath({ urlPath: '/foo/bar' }, {
                 title: 'testSchema', 'exegesis-plugin-jsonschema-controller': 'schemaController' });
             expect( this.inst.apiDoc.paths['/foo/bar'] ).to.be.an( 'object' );
+            expect( this.inst.apiDoc.paths['/foo/bar']['x-exegesis-jsonschema-pathbase'] ).to.eql( '' );
             expect( this.inst.apiDoc.paths['/foo/bar']['x-exegesis-jsonschema-pathtemplate'] ).to.eql( '/foo/bar' );
+        });
+        it( 'includes baseUrl', function() {
+            this.inst.baseUrl = '/api';
+            this.inst.addObjectPath({ urlPath: '/foo/bar' }, {
+                title: 'testSchema', 'exegesis-plugin-jsonschema-controller': 'schemaController' });
+            expect( this.inst.apiDoc.paths['/api/foo/bar'] ).to.be.an( 'object' );
+            expect( this.inst.apiDoc.paths['/api/foo/bar']['x-exegesis-jsonschema-pathbase'] ).to.eql( '/api' );
+            expect( this.inst.apiDoc.paths['/api/foo/bar']['x-exegesis-jsonschema-pathtemplate'] ).to.eql( '/foo/bar' );
         });
         it( 'does not allow duplicate paths', function() {
             var context = { urlPath: '/foo/bar' };
@@ -315,6 +324,16 @@ describe( 'JSONSchemaPathGenerator', function() {
             this.inst.addCollectionPath({ urlPath: '/foo/bar' }, {
                 title: 'testSchema', 'exegesis-plugin-jsonschema-controller': 'schemaController' });
             expect( this.inst.apiDoc.paths['/foo/bar'] ).to.be.an( 'object' );
+            expect( this.inst.apiDoc.paths['/foo/bar']['x-exegesis-jsonschema-pathbase'] ).to.eql( '' );
+            expect( this.inst.apiDoc.paths['/foo/bar']['x-exegesis-jsonschema-pathtemplate'] ).to.eql( '/foo/bar' );
+        });
+        it( 'includes baseUrl', function() {
+            this.inst.baseUrl = '/api';
+            this.inst.addCollectionPath({ urlPath: '/foo/bar' }, {
+                title: 'testSchema', 'exegesis-plugin-jsonschema-controller': 'schemaController' });
+            expect( this.inst.apiDoc.paths['/api/foo/bar'] ).to.be.an( 'object' );
+            expect( this.inst.apiDoc.paths['/api/foo/bar']['x-exegesis-jsonschema-pathbase'] ).to.eql( '/api' );
+            expect( this.inst.apiDoc.paths['/api/foo/bar']['x-exegesis-jsonschema-pathtemplate'] ).to.eql( '/foo/bar' );
         });
         it( 'does not allow duplicate paths', function() {
             var context = { urlPath: '/foo/bar' };
