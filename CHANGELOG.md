@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/phil-mitchell/exegesis-plugin-jsonschema/compare/v1.0.1...v1.0.2) (2019-02-11)
+
+
+### Bug Fixes
+
+* **api:** add base path to the operation object ([9f6937f](https://github.com/phil-mitchell/exegesis-plugin-jsonschema/commit/9f6937f))
+
 ## [1.0.1](https://github.com/phil-mitchell/exegesis-plugin-jsonschema/compare/v1.0.0...v1.0.1) (2019-02-09)
 
 
