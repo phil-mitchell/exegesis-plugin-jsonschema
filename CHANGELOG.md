@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/phil-mitchell/exegesis-plugin-jsonschema/compare/v1.0.2...v1.1.0) (2019-03-09)
+
+
+### Features
+
+* **api:** support models in arbitrary acyclic graphs ([8f3bb63](https://github.com/phil-mitchell/exegesis-plugin-jsonschema/commit/8f3bb63))
+
 ## [1.0.2](https://github.com/phil-mitchell/exegesis-plugin-jsonschema/compare/v1.0.1...v1.0.2) (2019-02-11)
 
 
