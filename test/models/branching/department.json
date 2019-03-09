@@ -1,0 +1,18 @@
+{
+    "$id": "https://example.com/basic.schema.json",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Department",
+    "type": "object",
+    "exegesis-plugin-jsonschema-controller": "department",
+    "properties": {
+        "employees": {
+            "type": "array",
+            "items": {
+                "$ref": "./employee.json"
+            }
+        },
+        "name": {
+            "type": "string"
+        }
+    }
+}

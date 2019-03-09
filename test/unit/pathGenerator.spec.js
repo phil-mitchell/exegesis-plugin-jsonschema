@@ -55,12 +55,21 @@ describe( 'JSONSchemaPathGenerator', function() {
         it( 'requires schema to have a title', function() {
             expect( this.inst.addObjectDefinition.bind( this.inst, {}, {}) ).to.throw( 'Missing title in schema' );
         });
-        it( 'rejects duplicate schemas is not allowed', function() {
+        it( 'rejects duplicate schemas with conflicting definition', function() {
             var schema = {
-                title: 'testSchema'
+                title: 'testSchema',
+                properties: {
+                    id: { type: 'integer' }
+                }
+            };
+            var schema2 = {
+                title: 'testSchema',
+                properties: {
+                    id: { type: 'string' }
+                }
             };
             this.inst.addObjectDefinition({}, schema );
-            expect( this.inst.addObjectDefinition.bind( this.inst, {}, schema ) ).to.throw( 'Duplicate schema with title testSchema' );
+            expect( this.inst.addObjectDefinition.bind( this.inst, {}, schema2 ) ).to.throw( 'Duplicate schema with title testSchema' );
         });
         it( 'adds schema definition to the apiDoc', function() {
             var schema = {
@@ -74,6 +83,22 @@ describe( 'JSONSchemaPathGenerator', function() {
                 title: 'testSchema',
                 properties: {
                     testProperty: { type: 'string' }
+                }
+            });
+        });
+        it( 'accepts duplicate schemas with identical definition', function() {
+            var schema = {
+                title: 'testSchema',
+                properties: {
+                    id: { type: 'integer' }
+                }
+            };
+            this.inst.addObjectDefinition({}, schema );
+            this.inst.addObjectDefinition({}, schema );
+            expect( this.inst.apiDoc.components.schemas.testSchema ).to.eql({
+                title: 'testSchema',
+                properties: {
+                    id: { type: 'integer' }
                 }
             });
         });

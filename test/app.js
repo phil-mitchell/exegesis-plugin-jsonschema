@@ -23,6 +23,7 @@ async function createServer() {
         }
     });
     await jsonSchemaPlugin.addSchema( __dirname + '/models/basic/root.json', '/basic' );
+    await jsonSchemaPlugin.addSchema( __dirname + '/models/branching/root.json', '/branching' );
 
     const options = {
         controllers: require( './controllers' ),

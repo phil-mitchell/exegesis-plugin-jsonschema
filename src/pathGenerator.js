@@ -35,10 +35,14 @@ class JSONSchemaPathGenerator {
 
     addObjectDefinition( context, schema ) {
         var title = this.toSchemaName( context, schema );
+        var apiSchema = toOpenAPIComponent( schema );
         if( this.apiDoc.components.schemas[title] ) {
-            throw new Error( `Duplicate schema with title ${title}` );
+            if( JSON.stringify( apiSchema ) !== JSON.stringify( this.apiDoc.components.schemas[title] ) ) {
+                throw new Error( `Duplicate schema with title ${title}` );
+            }
+        } else {
+            this.apiDoc.components.schemas[title] = apiSchema;
         }
-        this.apiDoc.components.schemas[title] = toOpenAPIComponent( schema );
     }
 
     addObjectPath( context, schema ) {
