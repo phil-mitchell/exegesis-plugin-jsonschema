@@ -37,7 +37,13 @@ module.exports = function blankObject( schemaRoot ) {
 
     function postSchema( schema, path, parent ) {
         if( parent && !schema.readOnly && parent.type === 'object' ) {
-            parent.res[path[path.length-1]] = schema.res || parent.res[path[path.length-1]] || null;
+            var res = null;
+            if( schema.res != null ) {
+                res = schema.res;
+            } else if( parent.res[path[path.length-1]] != null ) {
+                res = parent.res[path[path.length-1]];
+            }
+            parent.res[path[path.length-1]] = res;
         }
     }
 

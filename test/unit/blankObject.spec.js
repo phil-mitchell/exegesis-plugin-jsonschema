@@ -51,13 +51,15 @@ describe( 'Blank Objects', function() {
             type: 'object',
             properties: {
                 name: { type: 'string', 'default': 'Jane Doe' },
-                address: { type: 'string' }
+                address: { type: 'string' },
+                condemned: { type: 'boolean', 'default': false }
             }
         };
         var blank = blankObject( schema );
         expect( blank ).to.eql({
             name: 'Jane Doe',
-            address: null
+            address: null,
+            condemned: false
         });
     });
 
@@ -94,7 +96,8 @@ describe( 'Blank Objects', function() {
                     type: 'object',
                     properties: {
                         street: { type: 'string' },
-                        city: { type: 'string', 'default': 'Waterloo' }
+                        city: { type: 'string', 'default': 'Waterloo' },
+                        condemned: { type: 'boolean', 'default': false }
                     }
                 }
             }
@@ -104,7 +107,8 @@ describe( 'Blank Objects', function() {
             name: 'Jane Doe',
             address: {
                 city: 'Waterloo',
-                street: null
+                street: null,
+                condemned: false
             }
         });
     });
@@ -119,11 +123,13 @@ describe( 'Blank Objects', function() {
                     'default': {
                         silly: 'putty',
                         street: '123 Fake Street',
-                        city: 'Springfield'
+                        city: 'Springfield',
+                        condemned: false
                     },
                     properties: {
                         street: { type: 'string' },
-                        city: { type: 'string', 'default': 'Waterloo' }
+                        city: { type: 'string', 'default': 'Waterloo' },
+                        condemned: { type: 'boolean' }
                     }
                 }
             }
@@ -134,7 +140,8 @@ describe( 'Blank Objects', function() {
             address: {
                 silly: 'putty',
                 city: 'Waterloo',
-                street: '123 Fake Street'
+                street: '123 Fake Street',
+                condemned: false
             }
         });
     });
