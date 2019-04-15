@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/phil-mitchell/exegesis-plugin-jsonschema/compare/v1.1.0...v1.1.1) (2019-04-15)
+
+
+### Bug Fixes
+
+* **api:** apply correct defaults if default is falsey ([2d9db2f](https://github.com/phil-mitchell/exegesis-plugin-jsonschema/commit/2d9db2f))
+
 # [1.1.0](https://github.com/phil-mitchell/exegesis-plugin-jsonschema/compare/v1.0.2...v1.1.0) (2019-03-09)
 
 
