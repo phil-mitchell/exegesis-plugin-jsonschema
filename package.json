@@ -1,6 +1,6 @@
 {
   "name": "exegesis-plugin-jsonschema",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "An exegesis plugin to generate CRUD operations based on JSON schema definition",
   "main": "src/index.js",
   "engines": {
