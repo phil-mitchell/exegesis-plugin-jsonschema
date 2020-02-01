@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/phil-mitchell/exegesis-plugin-jsonschema/compare/v1.1.2...v1.1.3) (2020-02-01)
+
+
+### Bug Fixes
+
+* **config:** update pipeline to use Node 10 ([89adfeb](https://github.com/phil-mitchell/exegesis-plugin-jsonschema/commit/89adfebd0a1936c17db6480a456835ff994bb892))
+
 ## [1.1.2](https://github.com/phil-mitchell/exegesis-plugin-jsonschema/compare/v1.1.1...v1.1.2) (2019-08-17)
 
 
