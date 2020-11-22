@@ -147,7 +147,7 @@ describe( 'branching schema', function() {
 
     it( 'can list employees by department', function( done ) {
         superagent
-        .get( 'http://localhost:3000/branching/departments/1/employees' )
+        .get( 'http://localhost:3000/branching/departments/IT/employees' )
         .end( function( e, res ) {
             expect( e ).to.be.null;
             expect( res.text ).to.contain( 'employee 1' );
@@ -157,7 +157,7 @@ describe( 'branching schema', function() {
     });
     it( 'can create an employee by department with all fields', function( done ) {
         superagent
-        .post( 'http://localhost:3000/branching/departments/1/employees' )
+        .post( 'http://localhost:3000/branching/departments/IT/employees' )
         .send({
             firstName: 'Joe',
             lastName: 'Bloggs',
@@ -176,7 +176,7 @@ describe( 'branching schema', function() {
     });
     it( 'can create an employee by department with defaults', function( done ) {
         superagent
-        .post( 'http://localhost:3000/branching/departments/1/employees' )
+        .post( 'http://localhost:3000/branching/departments/IT/employees' )
         .send({
             firstName: 'Joe',
             lastName: 'Bloggs'
@@ -194,7 +194,7 @@ describe( 'branching schema', function() {
     });
     it( 'can get specific employee by department', function( done ) {
         superagent
-        .get( 'http://localhost:3000/branching/departments/1/employees/555' )
+        .get( 'http://localhost:3000/branching/departments/IT/employees/555' )
         .end( function( e, res ) {
             expect( e ).to.be.null;
             expect( res.body ).to.eql({ id: 555 });
@@ -203,7 +203,7 @@ describe( 'branching schema', function() {
     });
     it( 'gets an error for getting not-found employee by department', function( done ) {
         superagent
-        .get( 'http://localhost:3000/branching/departments/1/employees/99' )
+        .get( 'http://localhost:3000/branching/departments/IT/employees/99' )
         .end( function( e, res ) {
             expect( e ).to.exist;
             expect( res.status ).to.eql( 404 );
@@ -212,7 +212,7 @@ describe( 'branching schema', function() {
     });
     it( 'can update an employee by department', function( done ) {
         superagent
-        .patch( 'http://localhost:3000/branching/departments/1/employees/555' )
+        .patch( 'http://localhost:3000/branching/departments/IT/employees/555' )
         .send({
             firstName: 'Fred'
         })
@@ -227,7 +227,7 @@ describe( 'branching schema', function() {
     });
     it( 'gets an error for updating not-found employee by department', function( done ) {
         superagent
-        .patch( 'http://localhost:3000/branching/departments/1/employees/99' )
+        .patch( 'http://localhost:3000/branching/departments/IT/employees/99' )
         .send({
             firstName: 'Fred'
         })
@@ -239,7 +239,7 @@ describe( 'branching schema', function() {
     });
     it( 'can replace an employee by department', function( done ) {
         superagent
-        .put( 'http://localhost:3000/branching/departments/1/employees/555' )
+        .put( 'http://localhost:3000/branching/departments/IT/employees/555' )
         .send({
             firstName: 'Fred'
         })
@@ -256,7 +256,7 @@ describe( 'branching schema', function() {
     });
     it( 'gets an error for replacing not-found employee by department', function( done ) {
         superagent
-        .put( 'http://localhost:3000/branching/departments/1/employees/99' )
+        .put( 'http://localhost:3000/branching/departments/IT/employees/99' )
         .send({
             firstName: 'Fred'
         })
@@ -268,7 +268,7 @@ describe( 'branching schema', function() {
     });
     it( 'can delete an employee by department', function( done ) {
         superagent
-        .delete( 'http://localhost:3000/branching/departments/1/employees/555' )
+        .delete( 'http://localhost:3000/branching/departments/IT/employees/555' )
         .end( function( e, res ) {
             expect( e ).to.be.null;
             expect( res.status ).to.eql( 204 );
@@ -277,7 +277,7 @@ describe( 'branching schema', function() {
     });
     it( 'gets an error for deleting not-found employee by department', function( done ) {
         superagent
-        .delete( 'http://localhost:3000/branching/departments/1/employees/99' )
+        .delete( 'http://localhost:3000/branching/departments/IT/employees/99' )
         .end( function( e, res ) {
             expect( e ).to.exist;
             expect( res.status ).to.eql( 404 );

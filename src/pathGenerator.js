@@ -228,12 +228,13 @@ class JSONSchemaPathGenerator {
             if( !skipPath ) {
                 this.addCollectionPath( context, schema );
             }
+            let idProperty = ( schema.properties || {})[schema['exegesis-plugin-jsonschema-id'] || 'id'] || { type: 'integer' };
             this.processSchema( Object.assign({}, context, {
                 urlPath: `${context.urlPath || '' }/{pathParam${( context.pathParams || [] ).length}}`,
                 pathParams: ( context.pathParams || [] ).concat( [ {
                     'in': 'path',
                     name: `pathParam${( context.pathParams || [] ).length}`,
-                    schema: { type: 'integer' },
+                    schema: idProperty,
                     required: true,
                     description: `ID for ${schema.title || 'item' }`
                 } ] )

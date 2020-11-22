@@ -4,6 +4,7 @@
     "title": "Department",
     "type": "object",
     "exegesis-plugin-jsonschema-controller": "department",
+    "exegesis-plugin-jsonschema-id": "name",
     "properties": {
         "employees": {
             "type": "array",
