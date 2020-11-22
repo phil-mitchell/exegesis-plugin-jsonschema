@@ -1,3 +1,10 @@
+## [1.1.4](https://github.com/phil-mitchell/exegesis-plugin-jsonschema/compare/v1.1.3...v1.1.4) (2020-11-22)
+
+
+### Bug Fixes
+
+* **id:** Specify the id field and use its schema for the path parameter ([cc02fe8](https://github.com/phil-mitchell/exegesis-plugin-jsonschema/commit/cc02fe8d6bc7ba2aae6fa5609340ff0a5f0a8290))
+
 ## [1.1.3](https://github.com/phil-mitchell/exegesis-plugin-jsonschema/compare/v1.1.2...v1.1.3) (2020-02-01)
 
 
