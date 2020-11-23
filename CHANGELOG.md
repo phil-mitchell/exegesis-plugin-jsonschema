@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/phil-mitchell/exegesis-plugin-jsonschema/compare/v1.1.4...v1.2.0) (2020-11-23)
+
+
+### Features
+
+* **operations:** Support operations defined in the jsonschema ([7606c45](https://github.com/phil-mitchell/exegesis-plugin-jsonschema/commit/7606c452fbc1e604e63720ee281696409c1c1b92))
+
 ## [1.1.4](https://github.com/phil-mitchell/exegesis-plugin-jsonschema/compare/v1.1.3...v1.1.4) (2020-11-22)
 
 
