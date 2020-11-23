@@ -146,4 +146,21 @@ module.exports = class JSONSchemaController {
         return await controller.formatResponse( reqContext, item );
     }
 
+    async callOperation( reqContext ) {
+        var controller = this.getController( reqContext, 'callOperation' );
+        this.resolvePath( reqContext );
+
+        reqContext.requestBody = Object.assign(
+            this.getBlankObject( reqContext ),
+            reqContext.requestBody );
+
+        var item = await controller.callOperation( reqContext );
+
+        if( !item ) {
+            throw reqContext.makeError( 404, 'Not found' );
+        }
+
+        return await controller.formatResponse( reqContext, item );
+    }
+
 };

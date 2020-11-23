@@ -33,6 +33,15 @@ module.exports = class EmployeeController {
         return null;
     }
 
+    static async callOperation( context ) {
+        var reqId = context.requestObjectPath[context.requestObjectPath.length-2];
+        var operation = context.requestObjectPath[context.requestObjectPath.length-1];
+        if( operation === 'fire()' && reqId === 555 ) {
+            return({ success: true });
+        }
+        return null;
+    }
+
     static async formatResponse( context, item ) {
         return item;
     }

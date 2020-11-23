@@ -641,4 +641,102 @@ describe( 'Controller', function() {
         });
     });
 
+    describe( 'callOperation', function() {
+        before( function() {
+            this.controller = new JSONSchemaController();
+            this.testControllers = {
+                test: {
+                    callOperation: ( rq ) => { return{ _id: 1, defaultField: rq.requestBody.defaultField }; },
+                    formatResponse: ( rq, item ) => {
+                        return{ id: item._id, name: 'testItem', defaultField: item.defaultField };
+                    }
+                },
+                missingItem: {
+                    callOperation: () => { return null; },
+                    formatResponse: () => { return; }
+                },
+                missingOperation: {
+                    formatResponse: () => { return; }
+                }
+            };
+            this.controller.controllers = this.testControllers;
+        });
+
+        it( 'throws an exception when controller is missing operation', async function() {
+            var error = await this.controller.callOperation({
+                makeError: makeError,
+                api: {
+                    operationObject: {
+                        'x-exegesis-jsonschema-controller': 'missingOperation'
+                    },
+                    pathItemObject: {
+                    }
+                }
+            }).then( () => null, err => err );
+            expect( error ).to.be.an( 'Error' );
+            expect( error ).to.have.property( 'message', 'callOperation not implemented in missingOperation controller' );
+            expect( error ).to.have.property( 'status_code', 400 );
+        });
+
+        it( 'throws an exception when no item is found', async function() {
+            var error = await this.controller.callOperation({
+                makeError: makeError,
+                api: {
+                    operationObject: {
+                        'x-exegesis-jsonschema-controller': 'missingItem'
+                    },
+                    pathItemObject: {
+                    }
+                }
+            }).then( () => null, err => err );
+            expect( error ).to.be.an( 'Error' );
+            expect( error ).to.have.property( 'message', 'Not found' );
+            expect( error ).to.have.property( 'status_code', 404 );
+        });
+
+        it( 'returns formatted item', async function() {
+            var result = await this.controller.callOperation({
+                makeError: makeError,
+                api: {
+                    operationObject: {
+                        'x-exegesis-jsonschema-controller': 'test'
+                    },
+                    pathItemObject: {
+                    }
+                }
+            });
+            expect( result ).to.eql({ id: 1, name: 'testItem', defaultField: undefined });
+        });
+
+        it( 'applies the empty object in operationObject', async function() {
+            var result = await this.controller.callOperation({
+                makeError: makeError,
+                api: {
+                    operationObject: {
+                        'x-exegesis-jsonschema-controller': 'test',
+                        'x-exegesis-jsonschema-blankobject': '{ "defaultField": 0 }'
+                    },
+                    pathItemObject: {
+                    }
+                }
+            });
+            expect( result ).to.eql({ id: 1, name: 'testItem', defaultField: 0 });
+        });
+
+        it( 'applies the empty object in pathItemObject', async function() {
+            var result = await this.controller.callOperation({
+                makeError: makeError,
+                api: {
+                    operationObject: {
+                        'x-exegesis-jsonschema-controller': 'test'
+                    },
+                    pathItemObject: {
+                        'x-exegesis-jsonschema-blankobject': '{ "defaultField": 0 }'
+                    }
+                }
+            });
+            expect( result ).to.eql({ id: 1, name: 'testItem', defaultField: 0 });
+        });
+    });
+
 });

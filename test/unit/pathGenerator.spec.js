@@ -475,6 +475,186 @@ describe( 'JSONSchemaPathGenerator', function() {
         });
     });
 
+    describe( 'addOperationPath', function() {
+        beforeEach( function() {
+            this.inst = new JSONSchemaPathGenerator({}, 'testController' );
+        });
+        it( 'requires a controller name', function() {
+            expect( this.inst.addOperationPath.bind( this.inst, {}, { title: 'testSchema' }, {}) ).to.throw(
+                'Schema testSchema is missing exegesis-plugin-jsonschema-controller' );
+        });
+        it( 'uses provided path', function() {
+            this.inst.addOperationPath({ urlPath: '/foo/bar' }, {
+                title: 'testSchema', 'exegesis-plugin-jsonschema-controller': 'schemaController'
+            }, {
+                summary: 'Test operation',
+                schema: {},
+                responses: {}
+            });
+            expect( this.inst.apiDoc.paths['/foo/bar'] ).to.be.an( 'object' );
+            expect( this.inst.apiDoc.paths['/foo/bar']['x-exegesis-jsonschema-pathbase'] ).to.eql( '' );
+            expect( this.inst.apiDoc.paths['/foo/bar']['x-exegesis-jsonschema-pathtemplate'] ).to.eql( '/foo/bar' );
+        });
+        it( 'includes baseUrl', function() {
+            this.inst.baseUrl = '/api';
+            this.inst.addOperationPath({ urlPath: '/foo/bar' }, {
+                title: 'testSchema', 'exegesis-plugin-jsonschema-controller': 'schemaController'
+            }, {
+                summary: 'Test operation',
+                schema: {},
+                responses: {}
+            });
+            expect( this.inst.apiDoc.paths['/api/foo/bar'] ).to.be.an( 'object' );
+            expect( this.inst.apiDoc.paths['/api/foo/bar']['x-exegesis-jsonschema-pathbase'] ).to.eql( '/api' );
+            expect( this.inst.apiDoc.paths['/api/foo/bar']['x-exegesis-jsonschema-pathtemplate'] ).to.eql( '/foo/bar' );
+        });
+        it( 'does not allow duplicate paths', function() {
+            var context = { urlPath: '/foo/bar' };
+            var schema = { title: 'testSchema', 'exegesis-plugin-jsonschema-controller': 'schemaController' };
+            var operation = {
+                summary: 'Test operation',
+                schema: {},
+                responses: {}
+            };
+            this.inst.addOperationPath( context, schema, operation );
+            expect( this.inst.addOperationPath.bind( this.inst, context, schema, operation ) ).to.throw(
+                'Duplicate path /foo/bar found for schema testSchema' );
+        });
+        it( 'uses root path if none is provided', function() {
+            this.inst.addOperationPath({}, {
+                title: 'testSchema', 'exegesis-plugin-jsonschema-controller': 'schemaController'
+            }, {
+                summary: 'Test operation',
+                schema: {},
+                responses: {}
+            });
+            expect( this.inst.apiDoc.paths['/'] ).to.be.an( 'object' );
+        });
+        it( 'applies the plugin controller properties', function() {
+            this.inst.addOperationPath({}, {
+                title: 'testSchema', 'exegesis-plugin-jsonschema-controller': 'schemaController'
+            }, {
+                summary: 'Test operation',
+                schema: {},
+                responses: {}
+            });
+            expect( this.inst.apiDoc.paths['/']['x-exegesis-controller'] ).to.eql( this.inst.controller );
+            expect( this.inst.apiDoc.paths['/']['x-exegesis-jsonschema-controller'] ).to.eql( 'schemaController' );
+            expect( this.inst.apiDoc.paths['/']['x-exegesis-jsonschema-blankobject'] ).to.eql( 'null' );
+            expect( this.inst.apiDoc.paths['/']['x-exegesis-jsonschema-pathtemplate'] ).to.eql( '/' );
+        });
+        it( 'applies the blank object property', function() {
+            var schema = {
+                title: 'testSchema',
+                'exegesis-plugin-jsonschema-controller': 'schemaController'
+            };
+            var operation = {
+                summary: 'Test operation',
+                schema: {
+                    type: 'object',
+                    properties: {
+                        name: { type: 'string', 'default': 'Jane Doe' },
+                        address: {
+                            type: 'object',
+                            properties: {
+                                street: { type: 'string' },
+                                city: { type: 'string' }
+                            }
+                        }
+                    }
+                }
+            };
+            this.inst.addOperationPath({}, schema, operation );
+            expect( this.inst.apiDoc.paths['/']['x-exegesis-controller'] ).to.eql( this.inst.controller );
+            expect( this.inst.apiDoc.paths['/']['x-exegesis-jsonschema-controller'] ).to.eql( 'schemaController' );
+            expect( this.inst.apiDoc.paths['/']['x-exegesis-jsonschema-blankobject'] ).to.eql( JSON.stringify({
+                name: 'Jane Doe',
+                address: { street: null, city: null }
+            }) );
+        });
+        it( 'adds the POST method', function() {
+            this.inst.addOperationPath({}, {
+                title: 'testSchema', 'exegesis-plugin-jsonschema-controller': 'schemaController'
+            }, {
+                summary: 'Test operation',
+                schema: {
+                    type: 'object',
+                    properties: {
+                        name: { type: 'string', 'default': 'Jane Doe' },
+                        address: {
+                            type: 'object',
+                            properties: {
+                                street: { type: 'string' },
+                                city: { type: 'string' }
+                            }
+                        }
+                    }
+                },
+                responses: {
+                    201: {
+                        description: 'The new testSchema',
+                        content: {
+                            'application/json': {
+                                schema: {
+                                    type: 'string'
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            expect( this.inst.apiDoc.paths['/'].post ).to.eql({
+                summary: 'Test operation',
+                operationId: 'callOperation /',
+                parameters: [],
+                requestBody: {
+                    description: 'The operation parameters',
+                    required: true,
+                    content: {
+                        'application/json': {
+                            schema: {
+                                type: 'object',
+                                properties: {
+                                    name: { type: 'string', 'default': 'Jane Doe' },
+                                    address: {
+                                        type: 'object',
+                                        properties: {
+                                            street: { type: 'string' },
+                                            city: { type: 'string' }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                responses: {
+                    201: {
+                        description: 'The new testSchema',
+                        content: {
+                            'application/json': {
+                                schema: {
+                                    type: 'string'
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+        it( 'adds the path parameters from the context to each method', function() {
+            this.inst.addOperationPath({ pathParams: [ { 'in': 'path', name: 'test1' }, { 'in': 'path', name: 'test2' } ] }, {
+                title: 'testSchema', 'exegesis-plugin-jsonschema-controller': 'schemaController'
+            }, {
+                summary: 'Test operation',
+                schema: {},
+                responses: {}
+            });
+            expect( this.inst.apiDoc.paths['/'].post.parameters ).to.eql(
+                [ { 'in': 'path', name: 'test1' }, { 'in': 'path', name: 'test2' } ] );
+        });
+    });
+
     describe( 'processSchema', function() {
         beforeEach( function() {
             this.inst = new JSONSchemaPathGenerator({}, 'testController' );

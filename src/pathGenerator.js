@@ -223,6 +223,41 @@ class JSONSchemaPathGenerator {
         }
     }
 
+    addOperationPath( context, schema, operation ) {
+        var localControllerName = schema['exegesis-plugin-jsonschema-controller'];
+        if( !localControllerName ) {
+            throw new Error( `Schema ${schema.title} is missing exegesis-plugin-jsonschema-controller` );
+        }
+
+        var urlPath = ( ( this.baseUrl || '' ) + ( context.urlPath || '' ) ) || '/';
+        if( this.apiDoc.paths[urlPath || '/'] ) {
+            throw new Error( `Duplicate path ${urlPath || '/'} found for schema ${schema.title}` );
+        }
+
+        this.apiDoc.paths[urlPath] = {
+            'x-exegesis-controller': this.controller,
+            'x-exegesis-jsonschema-controller': localControllerName,
+            'x-exegesis-jsonschema-blankobject': JSON.stringify( blankObject( operation.schema ) ),
+            'x-exegesis-jsonschema-pathbase': this.baseUrl || '',
+            'x-exegesis-jsonschema-pathtemplate': context.urlPath || '/',
+            post: {
+                summary: operation.summary,
+                operationId: `callOperation ${urlPath}`,
+                parameters: [].concat( context.pathParams || [] ),
+                requestBody: {
+                    description: `The operation parameters`,
+                    required: true,
+                    content: {
+                        'application/json': {
+                            schema: operation.schema
+                        }
+                    }
+                },
+                responses: operation.responses
+            }
+        };
+    }
+
     processSchema( context, schema, collection, skipPath ) {
         if( collection ) {
             if( !skipPath ) {
@@ -258,6 +293,14 @@ class JSONSchemaPathGenerator {
                             urlPath: `${context.urlPath}/${name}`
                         }), definition, false, !definition.$id );
                     }
+                });
+            }
+            if( schema.operations ) {
+                Object.keys( schema.operations ).forEach( name => {
+                    let definition = schema.operations[name];
+                    this.addOperationPath( Object.assign({}, context, {
+                        urlPath: `${context.urlPath}/${name}`
+                    }), schema, definition );
                 });
             }
         }

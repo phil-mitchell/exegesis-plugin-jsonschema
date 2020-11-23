@@ -143,4 +143,19 @@ describe( 'basic schema', function() {
             done();
         });
     });
+    it( 'can call an operation on an employee', function( done ) {
+        superagent
+        .post( 'http://localhost:3000/basic/employees/555/fire()' )
+        .send({
+            reason: 'Too lazy',
+            endDate: '2020-01-02'
+        })
+        .end( function( e, res ) {
+            expect( e ).to.be.null;
+            expect( res.body ).to.eql({
+                success: true
+            });
+            done();
+        });
+    });
 });
