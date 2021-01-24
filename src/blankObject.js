@@ -4,6 +4,9 @@ const schemaWalker = require( '@cloudflare/json-schema-walker' );
 
 module.exports = function blankObject( schemaRoot ) {
     function preSchema( schema, path, parent ) {
+        if( typeof( schema ) !== 'object' ) {
+            return schema;
+        }
         switch( schema.type ) {
         case'array':
             schema.res = schema.res || [];
@@ -36,6 +39,9 @@ module.exports = function blankObject( schemaRoot ) {
     }
 
     function postSchema( schema, path, parent ) {
+        if( typeof( schema ) !== 'object' ) {
+            return;
+        }
         if( parent && !schema.readOnly && parent.type === 'object' ) {
             var res = null;
             if( schema.res != null ) {

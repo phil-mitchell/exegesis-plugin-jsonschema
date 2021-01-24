@@ -51,6 +51,26 @@ describe( 'branching schema', function() {
             done();
         });
     });
+    it( 'can create an employee with extra properties', function( done ) {
+        superagent
+        .post( 'http://localhost:3000/branching/employees' )
+        .send({
+            firstName: 'Joe',
+            lastName: 'Bloggs',
+            extra: 'extra'
+        })
+        .end( function( e, res ) {
+            expect( e ).to.be.null;
+            expect( res.body ).to.eql({
+                id: 555,
+                firstName: 'Joe',
+                lastName: 'Bloggs',
+                age: 37,
+                extra: 'extra'
+            });
+            done();
+        });
+    });
     it( 'can get specific employee', function( done ) {
         superagent
         .get( 'http://localhost:3000/branching/employees/555' )
