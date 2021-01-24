@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/phil-mitchell/exegesis-plugin-jsonschema/compare/v1.2.0...v1.2.1) (2021-01-24)
+
+
+### Bug Fixes
+
+* **extraProperties:** handle schema with extraProperties specified ([#11](https://github.com/phil-mitchell/exegesis-plugin-jsonschema/issues/11)) ([7271255](https://github.com/phil-mitchell/exegesis-plugin-jsonschema/commit/7271255a02ff51e3fa861e0ab21955423716933c))
+
 # [1.2.0](https://github.com/phil-mitchell/exegesis-plugin-jsonschema/compare/v1.1.4...v1.2.0) (2020-11-23)
 
 
