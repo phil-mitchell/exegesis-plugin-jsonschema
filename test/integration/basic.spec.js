@@ -51,6 +51,20 @@ describe( 'basic schema', function() {
             done();
         });
     });
+    it( 'gets an error creating an employee with extra properties', function( done ) {
+        superagent
+        .post( 'http://localhost:3000/basic/employees' )
+        .send({
+            firstName: 'Joe',
+            lastName: 'Bloggs',
+            extra: 'extra'
+        })
+        .end( function( e, res ) {
+            expect( e ).to.exist;
+            expect( res.status ).to.eql( 400 );
+            done();
+        });
+    });
     it( 'can get specific employee', function( done ) {
         superagent
         .get( 'http://localhost:3000/basic/employees/555' )

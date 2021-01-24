@@ -4,6 +4,7 @@
     "title": "Employees",
     "type": "object",
     "exegesis-plugin-jsonschema-controller": "employee",
+    "additionalProperties": false,
     "properties": {
         "firstName": {
             "type": "string",
@@ -25,6 +26,7 @@
             "summary": "Terminate this employee",
             "schema": {
                 "type": "object",
+                "additionalProperties": false,
                 "properties": {
                     "reason": { "type": "string" },
                     "endDate": { "type": "string", "format": "date" }
