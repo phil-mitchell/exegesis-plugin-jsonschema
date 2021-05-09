@@ -1,3 +1,10 @@
+## [1.2.3](https://github.com/phil-mitchell/exegesis-plugin-jsonschema/compare/v1.2.2...v1.2.3) (2021-05-09)
+
+
+### Bug Fixes
+
+* **deps:** Update dependencies to fix security warnings ([162baac](https://github.com/phil-mitchell/exegesis-plugin-jsonschema/commit/162baacf48763421a21616cfa1b00525336a4ead))
+
 ## [1.2.2](https://github.com/phil-mitchell/exegesis-plugin-jsonschema/compare/v1.2.1...v1.2.2) (2021-05-09)
 
 
