@@ -1,3 +1,10 @@
+## [1.2.2](https://github.com/phil-mitchell/exegesis-plugin-jsonschema/compare/v1.2.1...v1.2.2) (2021-05-09)
+
+
+### Bug Fixes
+
+* **build:** set up PR testing ([af5b083](https://github.com/phil-mitchell/exegesis-plugin-jsonschema/commit/af5b083f77f00a015490923f755ae2a2e3163455))
+
 ## [1.2.1](https://github.com/phil-mitchell/exegesis-plugin-jsonschema/compare/v1.2.0...v1.2.1) (2021-01-24)
 
 
